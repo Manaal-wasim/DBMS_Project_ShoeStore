@@ -1,0 +1,43 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center mt-4">
+    <h1 class="display-4">Welcome to SOLE HEAVEN</h1>
+    <p class="lead">Find the perfect pair for every occasion</p>
+    <hr class="my-4">
+    <p>Browse our latest collection of stylish and comfortable shoes</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'view_products' %}" role="button">View Products</a>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-shipping-fast fa-3x mb-3 text-primary"></i>
+                <h5 class="card-title">Free Shipping</h5>
+                <p class="card-text">On all orders over $50</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-exchange-alt fa-3x mb-3 text-primary"></i>
+                <h5 class="card-title">Easy Returns</h5>
+                <p class="card-text">30-day return policy</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-headset fa-3x mb-3 text-primary"></i>
+                <h5 class="card-title">24/7 Support</h5>
+                <p class="card-text">Dedicated support</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

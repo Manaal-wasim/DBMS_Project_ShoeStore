@@ -1,0 +1,78 @@
+{% extends 'store/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Your Order History</h2>
+
+{% if orders %}
+<div class="accordion" id="ordersAccordion">
+    {% for order in orders %}
+    <div class="card mb-3">
+        <div class="card-header" id="heading{{ order.0 }}">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" 
+                        data-target="#collapse{{ order.0 }}" aria-expanded="true" 
+                        aria-controls="collapse{{ order.0 }}">
+                    Order #{{ order.0 }} - {{ order.1|date:"F j, Y" }} 
+                    <span class="badge badge-{% if order.2 == 'Delivered' %}success{% else %}warning{% endif %}">
+                        {{ order.2 }}
+                    </span>
+                </button>
+            </h5>
+        </div>
+        <div id="collapse{{ order.0 }}" class="collapse" aria-labelledby="heading{{ order.0 }}" 
+             data-parent="#ordersAccordion">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-right">Quantity</th>
+                            <th class="text-right">Price</th>
+                            <th class="text-right">Subtotal</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_details|get_item:order.0 %}
+                        <tr>
+                            <td>{{ item.2|default:"Unknown Product" }}</td>
+                            <td class="text-right">{{ item.3|default:0 }}</td>
+                            <td class="text-right">${{ item.4|default:0|floatformat:2 }}</td>
+                            <td class="text-right">${{ item.3|multiply:item.4|floatformat:2 }}</td>
+                            <td>
+                                {% if order.2 == 'Delivered' %}
+                                <a href="{% url 'rate_product' order_id=order.0 product_id=item.1 %}" 
+                                   class="btn btn-sm btn-info">Rate</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No items found for this order</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-active">
+                            <td colspan="3" class="text-right"><strong>Total</strong></td>
+                            <td class="text-right">
+                                <strong>${{ order_details|get_item:order.0|sum_subtotals|floatformat:2 }}</strong>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">
+    You haven't placed any orders yet. <a href="{% url 'view_products' %}">Browse our products</a> to get started.
+</div>
+{% endif %}
+{% endblock %}

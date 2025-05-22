@@ -1,0 +1,78 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Customer Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron mt-4" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+    <h1 class="display-4" style="color: #2c3e50; font-weight: 600;">Welcome, <span style="color: #3498db;">Customer</span>!</h1>
+    <p class="lead" style="color: #34495e; font-size: 1.25rem;">Browse our latest collection of shoes and find your perfect pair.</p>
+    <hr class="my-4" style="border-color: #dfe6e9;">
+    <p style="color: #7f8c8d; font-size: 1.1rem;">Start shopping now and enjoy our exclusive deals.</p>
+    <a class="btn btn-lg" href="{% url 'view_products' %}" role="button" 
+       style="background-color: #3498db; color: white; border: none; padding: 10px 25px; font-weight: 500; border-radius: 8px; transition: all 0.3s ease;">
+       View Products
+       <i class="fas fa-arrow-right ml-2"></i>
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100" style="border: none; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
+            <div class="card-body text-center" style="padding: 2rem;">
+                <div style="background-color: #e3f2fd; width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fas fa-shoe-prints fa-2x" style="color: #2196f3;"></i>
+                </div>
+                <h5 class="card-title" style="color: #2c3e50; font-weight: 600; margin-bottom: 1rem;">Latest Collection</h5>
+                <p class="card-text" style="color: #7f8c8d; margin-bottom: 1.5rem;">Discover our newest arrivals</p>
+                <a href="{% url 'view_products' %}" class="btn" 
+                   style="background-color: transparent; color: #3498db; border: 2px solid #3498db; border-radius: 8px; padding: 8px 20px; font-weight: 500; transition: all 0.3s ease;">
+                   Browse
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100" style="border: none; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
+            <div class="card-body text-center" style="padding: 2rem;">
+                <div style="background-color: #e8f5e9; width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fas fa-shopping-cart fa-2x" style="color: #4caf50;"></i>
+                </div>
+                <h5 class="card-title" style="color: #2c3e50; font-weight: 600; margin-bottom: 1rem;">Your Cart</h5>
+                <p class="card-text" style="color: #7f8c8d; margin-bottom: 1.5rem;">View and manage your shopping cart</p>
+                <a href="{% url 'view_cart' %}" class="btn" 
+                   style="background-color: transparent; color: #4caf50; border: 2px solid #4caf50; border-radius: 8px; padding: 8px 20px; font-weight: 500; transition: all 0.3s ease;">
+                   View Cart
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100" style="border: none; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
+            <div class="card-body text-center" style="padding: 2rem;">
+                <div style="background-color: #fff3e0; width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fas fa-history fa-2x" style="color: #ff9800;"></i>
+                </div>
+                <h5 class="card-title" style="color: #2c3e50; font-weight: 600; margin-bottom: 1rem;">Order History</h5>
+                <p class="card-text" style="color: #7f8c8d; margin-bottom: 1.5rem;">Track your previous orders</p>
+                <a href="{% url 'shopping_history' %}" class="btn" 
+                   style="background-color: transparent; color: #ff9800; border: 2px solid #ff9800; border-radius: 8px; padding: 8px 20px; font-weight: 500; transition: all 0.3s ease;">
+                   View History
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .jumbotron:hover {
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Our Products</h2>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if product.4 %}
+                {# Fix for duplicate /media/ prefix #}
+                {% if product.4|slice:":6" == "/media" %}
+                    <img src="{{ product.4 }}" class="card-img-top product-img" alt="{{ product.1 }}">
+                {% else %}
+                    <img src="/media/{{ product.4 }}" class="card-img-top product-img" alt="{{ product.1 }}">
+                {% endif %}
+            {% else %}
+                <div class="text-center py-4 bg-light">
+                    <i class="fas fa-image fa-5x text-muted"></i>
+                    <p class="text-muted">No Image Available</p>
+                </div>
+            {% endif %}
+            
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ product.1 }}</h5>
+                <p class="card-text font-weight-bold">${{ product.2 }}</p>
+                <p class="card-text">
+                    {% if product.3 > 0 %}
+                        <span class="text-success">In Stock ({{ product.3 }})</span>
+                    {% else %}
+                        <span class="text-danger">Out of Stock</span>
+                    {% endif %}
+                </p>
+                
+                {% if request.session.user_type == 'customer' and product.3 > 0 %}
+                <div class="mt-auto">
+                    <form method="POST" action="{% url 'add_to_cart' product.0 %}">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="quantity" 
+                                   value="1" min="1" max="{{ product.3 }}" style="width: 70px;">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

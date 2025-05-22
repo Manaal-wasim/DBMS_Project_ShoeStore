@@ -1,0 +1,45 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Customer Feedback{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Customer Feedback</h2>
+{% if feedbacks %}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Feedback ID</th>
+                <th>Customer</th>
+                <th>Order ID</th>
+                <th>Rating</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedbacks %}
+            <tr>
+                <td>{{ feedback.0 }}</td>
+                <td>{{ feedback.1 }}</td>
+                <td>{{ feedback.2 }}</td>
+                <td>
+                    {% for _ in "12345" %}
+                        {% if forloop.counter <= feedback.3 %}
+                            <i class="fas fa-star text-warning"></i>
+                        {% else %}
+                            <i class="far fa-star text-warning"></i>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ feedback.4 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    No feedback available yet.
+</div>
+{% endif %}
+{% endblock %}
